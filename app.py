@@ -35,14 +35,14 @@ if page == "🏡 Home":
 
     st.success("💡 Start your journey today by exploring the sections on the left!")
 
-# Progress Tracker
+# 📊 Progress Tracker
 elif page == "📊 Progress Tracker":
     st.header("📊 Your Growth Progress")
 
     days = st.slider("How many days have you been practicing a Growth Mindset?", 1, 30, 5)
     effort = st.slider("How much effort do you put in (1-10)?", 1, 10, 7)
 
-    st.session_state["days"] = days  
+    st.session_state["days"] = days
 
     fig, ax = plt.subplots()
     ax.bar(["Days Practiced", "Effort Level"], [days, effort], color=["blue", "green"])
@@ -53,10 +53,8 @@ elif page == "📊 Progress Tracker":
 elif page == "📝 Daily Challenge":
     st.header("📝 Daily Growth Challenge")
 
-    # Get how many days the user has practiced
     days = st.session_state.get("days", 1)
 
-    # List of challenges
     challenges = [
         "🔹 Identify one mistake you made today and what you learned from it.",
         "🔹 Try something new that challenges you.",
@@ -73,7 +71,6 @@ elif page == "📝 Daily Challenge":
         "🔹 Identify a habit you want to change and take the first step today."
     ]
 
-    # Motivational quotes to go with challenges
     quotes = [
         "💪 *Every challenge is a chance to grow.*",
         "🌱 *You don’t grow when you’re comfortable.*",
@@ -82,21 +79,17 @@ elif page == "📝 Daily Challenge":
         "🌟 *Believe in your ability to improve.*"
     ]
 
-    # Calculate today's challenge
     challenge_today = challenges[(days - 1) % len(challenges)]
     quote_today = quotes[days % len(quotes)]
 
-    # Display challenge and quote
     st.subheader("💡 Challenge for Today")
     st.markdown(f"### {challenge_today}")
     st.markdown(f"**{quote_today}**")
 
-    # Option to mark the challenge as done
     if st.checkbox("✅ I completed this challenge today!"):
         st.balloons()
         st.success("Awesome! Keep it up! 🎉")
 
-    # Optional: Reflect on the challenge
     reflection = st.text_area("📝 How did it go? What did you learn?")
     if st.button("Save Reflection"):
         if reflection.strip():
@@ -104,8 +97,7 @@ elif page == "📝 Daily Challenge":
         else:
             st.warning("Please write something before saving.")
 
-
-# 💡 Tips for Growth (with MCQs)
+# 💡 Tips for Growth
 elif page == "💡 Tips for Growth":
     st.header("💡 Daily Growth Tips")
 
@@ -122,10 +114,7 @@ elif page == "💡 Tips for Growth":
     days = st.session_state.get("days", 1)
     st.markdown(f"💡 **Tip for Today:** {tips[days % len(tips)]}")
 
-    # Divider
     st.markdown("---")
-
-    # Growth Quiz
     st.subheader("🧠 Growth Mindset Quiz")
 
     questions = [
@@ -160,7 +149,7 @@ elif page == "💡 Tips for Growth":
 
     for idx, q in enumerate(questions):
         st.markdown(f"**Q{idx+1}. {q['question']}**")
-        user_answer = st.radio("", q["options"], key=f"quiz_{idx}")
+        user_answer = st.radio(" ", q["options"], key=f"quiz_{idx}", label_visibility="collapsed")
         if st.button(f"✅ Submit Q{idx+1}"):
             if user_answer == q["answer"]:
                 st.success("🎉 Correct! You're thinking like a growth-minded person!")
@@ -168,8 +157,7 @@ elif page == "💡 Tips for Growth":
                 st.error(f"❌ Oops! The correct answer is: **{q['answer']}**")
         st.markdown("---")
 
-
-# Goal Setting
+# 🎯 Goal Setting
 elif page == "🎯 Goal Setting":
     st.header("🎯 Set Your Goals")
 
@@ -182,7 +170,7 @@ elif page == "🎯 Goal Setting":
         else:
             st.warning("⚠️ Please enter a goal first.")
 
-# Self-Reflection
+# 🤔 Self-Reflection
 elif page == "🤔 Self-Reflection":
     st.header("🤔 Daily Self-Reflection")
 
